@@ -1,0 +1,20 @@
+extends ../layouts/layout
+
+block content
+  h1.text-center.mt-4 Login Here
+  section.row.mt-4
+    form.m-auto.col-md-3(method='post' action='/login')
+      .form-group
+        label(for='name') Name
+        input#name.form-control(type='text' placeholder='Enter your name' autocomplete='off')
+      .form-group
+        label(for='email') Email address
+        input#email.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' autocomplete='off')
+        small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+      .form-group
+        label(for='password') Password
+        input#password.form-control(type='password' placeholder='Password' autocomplete='off')
+      .form-group
+        label(for='confirmPassword') Password
+        input#confirmPassword.form-control(type='password' placeholder='Confrim password' autocomplete='off')
+      button.btn.btn-primary(type='submit') Submit
