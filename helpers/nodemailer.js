@@ -10,11 +10,13 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendEmail(info) {
-  transporter.sendMail(info, function (error, response) {
-    if (error) {
-      return console.log(error);
-    }
-    console.log(response);
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(info, function (error, response) {
+      if (error) {
+        return reject(error);
+      }
+      resolve(response);
+    });
   });
 }
 

@@ -33,13 +33,13 @@ router
         min: 5,
       }),
     ],
-    (req, res) => {
-      const { name, email, message } = req.body;
+    async (req, res) => {
+      const { password, email, message } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.render("contactus", {
           title: "About us | CodeShare",
-          name,
+          password,
           email,
           message,
           errors: errors.array(),
@@ -53,9 +53,12 @@ router
         subject: "Customer questions✔", // Subject line
         text: message, // plain text body
       };
-      sendEmail(mailOptions).then(() => {
+      try {
+        await sendEmail(mailOptions);
         return res.render("thankyou", { title: "Thank You | CodeShare" });
-      });
+      } catch (error) {
+        console.log(error);
+      }
     }
   );
 
