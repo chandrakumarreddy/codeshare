@@ -13,11 +13,11 @@ block content
       .form-group
         label(for='password') Password
         input#password.form-control(type='password' placeholder='Password' name='password' value=password class=hasError(errors,'password')? 'is-invalid' : '')
-        if(hasError(errors, 'email'))
+        if(hasError(errors, 'password'))
           .invalid-feedback #{getError(errors, 'password').msg}
       .form-group
         label(for='message') Message
         textarea#message.form-control(rows='3' placeholder='Enter Message' name='message' class=hasError(errors,'message')? 'is-invalid' : '') #{message}
-        if(hasError(errors, 'email'))
+        if(hasError(errors, 'message'))
           .invalid-feedback #{getError(errors, 'message').msg}
       button.btn.btn-primary(type='submit') Submit

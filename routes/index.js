@@ -1,7 +1,8 @@
 const { body, validationResult } = require("express-validator");
-const { getError, hasError } = require("../utils/errors");
 const express = require("express");
 const router = express.Router();
+const { getError, hasError } = require("../utils/errors");
+const { sendEmail } = require("../helpers/nodemailer");
 
 /* GET home page. */
 router.get("/", (req, res) => {
@@ -15,7 +16,6 @@ router.get("/about", (req, res) => {
 router
   .route("/contactus")
   .get((req, res) => {
-    console.log(getError([], "email"));
     res.render("contactus", {
       title: "Contact Us | CodeShare",
       errors: [],
@@ -47,7 +47,15 @@ router
           hasError,
         });
       }
-      return res.render("thankyou", { title: "Thank You | CodeShare" });
+      const mailOptions = {
+        from: `"Customer" <${email}>`, // sender address
+        to: "keka1642@gmail.com", // list of receivers
+        subject: "Customer questions✔", // Subject line
+        text: message, // plain text body
+      };
+      sendEmail(mailOptions).then(() => {
+        return res.render("thankyou", { title: "Thank You | CodeShare" });
+      });
     }
   );
 
