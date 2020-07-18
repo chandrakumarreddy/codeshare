@@ -26,7 +26,7 @@ router
   .post(
     [
       body("email", "Please Enter a valid Email address").isEmail(),
-      body("password", "Password should be more than 6 characters").isLength({
+      body("issue", "issue should be more than 6 characters").isLength({
         min: 6,
       }),
       body("message", "Message should be more than 6 characters").isLength({
@@ -34,12 +34,12 @@ router
       }),
     ],
     async (req, res) => {
-      const { password, email, message } = req.body;
+      const { issue, email, message } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.render("contactus", {
           title: "About us | CodeShare",
-          password,
+          issue,
           email,
           message,
           errors: errors.array(),
@@ -50,7 +50,7 @@ router
       const mailOptions = {
         from: `"Customer" <${email}>`, // sender address
         to: "keka1642@gmail.com", // list of receivers
-        subject: "Customer questions✔", // Subject line
+        subject: issue, // Subject line
         text: message, // plain text body
       };
       try {
